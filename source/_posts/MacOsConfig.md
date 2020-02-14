@@ -31,6 +31,9 @@ date: 2019-06-13 15:45:56
 [MindNode](https://mindnode.com/)
 <!-- <img src="https://mindnode.com/assets/icon.png" width="10%" height="10%"> -->
 
+# 下载加速工具
+[bnd2](https://github.com/b3log/baidu-netdisk-downloaderx)
+
 # 网页浏览
 ## Chrome
 ### Extensions

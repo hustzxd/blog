@@ -36,7 +36,7 @@ torch.nn.ConvTranspose1d(in_channels, out_channels, kernel_size, stride=1, paddi
 
 
 $$
-L_{out} = L_{in} * s - 2 \times p + d \times (k - 1) + op + 1
+L_{out} = (L_{in} - 1) * s - 2 \times p + d \times (k - 1) + op + 1
 $$
 
 

@@ -35,12 +35,41 @@ $$
 
 ## DoReFa Net
 
+For weights:
 $$
-	w^k = 2 quantize_k(\frac{tanh(w_i)}{2 max(|tanh(w_i)|)} + \frac{1}{2}) - 1
+	w^k = 2 quantize_k(\frac{\tanh(w_i)}{2 \max(|\tanh(w_i)|)} + \frac{1}{2}) - 1
 $$
+uniform quantization :( 为什么不直接使用clip函数，明明最后用的是[-1, 1]之间的数值，$tanh$的作用感觉也没有那么大；在某些已经训练好的网络中，weight的分布可能是非常集中在0附近的，如果仍然使用这个映射方式，就导致该层的weight分布强行被拉到[-1, 1]之间，那该层的功能性是不是就改变了？这是不是 DoReFa类型的量化对 first and last layer 敏感的原因呢？
+For activations:
+$$
+	a^k = quantize_k(clip(r, 0, 1))
+$$
+uniform quantization :(
+
+## Towards Effective Low-bitwidth Convolutional Neural Networks
+
+The quantization equation:
+$$
+	z_q = Q(z_r) = \frac{1}{2^k - 1}round((2^k - 1)z_r)
+$$
+where $z_r \in \[0, 1\]$ denotes the full-precision value and $z_q \in \[0, 1\]$denotes the quantized value.
+
+For weights:
+$$
+	w_q = Q(\frac{\tanh(w)}{2\max(|\tanh(w)|)} + \frac{1}{2})
+$$
+应该是paper中写错了，最后应该和DoFeFa的量化方式一样
+For activation:
+$$
+	x_q = Q(clip(x, 0, 1))
+$$
+Paper 主要做了一下几组实验：
+**TS** Two step: quantize weight => quantize activation
+**PQ** Progressive quantization: quantization from higher precisions to lower precisions
+**Guided** Teacher student training.
 
 ## WRPN
-受到了Wide ResNet的启发，Wide ResNet减少网络的深度，扩展网络的宽度，通过重新设计了网络结构的方式来使得网络保持原有的精度。**WRPN** wide reduced-precision networks需要对weights和activation进行量化，相当于减少了网络的拟合能力，可以通过增加网络款宽度的方式来增加一部分参数来弥补量化带来的损失。
+受到了Wide ResNet的启发，Wide ResNet减少网络的深度，扩展网络的宽度，通过重新设计了网络结构的方式来使得网络保持原有的精度。**WRPN** wide reduced-precision networks需要对weights和activation进行量化，相当于减少了网络的拟合能力，可以通过增加网络宽度的方式来增加一部分参数来弥补量化带来的损失。
 
 半成品的实现：[Code](https://nervanasystems.github.io/distiller/algo_quantization/index.html)
 ### 原理分析
@@ -166,3 +195,11 @@ $$
 # References:
 1. [paper-of-quantization](https://joyeeo.github.io/2019/01/11/paper-of-quantization/)
 2. [nervanasystems.github.io](https://nervanasystems.github.io/distiller/algo_quantization/index.html)
+
+
+
+
+
+
+
+
