@@ -360,7 +360,7 @@ han: false
 
 # Disqus
 disqus:
-  enable: false
+  enable: true
   shortname: joyee
   count: true
 
@@ -378,7 +378,7 @@ changyan:
 # You can get your appid and appkey from https://leancloud.cn
 # more info please open https://valine.js.org
 valine:
-  enable: true
+  enable: false
   appid: QQvNAVl7slo6LMGbn2erpoYI-gzGzoHsz # your leancloud application appid
   appkey: bBSMYeODrthGcwen8URC0vO4 # your leancloud application appkey
   notify: false # mail notifier , https://github.com/xCss/Valine/wiki

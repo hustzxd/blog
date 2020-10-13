@@ -63,6 +63,7 @@ sudo dpkg -i libcudnn7_7.1.3.16-1+cuda9.0_amd64.deb
 
 ## Remove CUDA
 ```bash
+sudo apt-get --purge remove "cuda-*"
 sudo apt-get --purge remove "nvidia-*"
 ```
 
@@ -70,5 +71,4 @@ sudo apt-get --purge remove "nvidia-*"
 ```bash
 CUDA_VISIBLE_DEVICES="0,1"
 ```
-
 
